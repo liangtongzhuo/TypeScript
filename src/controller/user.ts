@@ -1,13 +1,15 @@
 import { Controller } from "./base";
 
-//user.ts
-
 export default class User extends Controller {
     async user() {
-        this.ctx.body = 'hello user';
+        this.ctx.body = this.ctx.service.check.index();
+    }
+
+    getConfig() {
+        return this.app.config;
     }
 
     async userInfo() {
-        this.ctx.body = 'hello userinfo';
+        this.ctx.body = this.getConfig().middleware[0];//注意这里
     }
 }
