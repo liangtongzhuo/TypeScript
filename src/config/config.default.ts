@@ -1,3 +1,3 @@
 module.exports = {
-    middleware: ['parse', 'mid'],
-}
+  middleware: ['parse', 'mid'],
+};

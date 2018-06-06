@@ -1,5 +1,5 @@
-import { BaseContext } from "koa";
-import Koa from "koa";
+import { BaseContext } from 'koa';
+import Koa from 'koa';
 
 export class Service {
   ctx: BaseContext;

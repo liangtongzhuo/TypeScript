@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "tsc && NODE_ENV=development node ./dist/index.js ",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "format": "prettier --write '**/*.ts' "
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "@types/koa-router": "^7.0.28",
     "koa": "^2.5.1",
     "koa-router": "^7.4.0",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "prettier": "^1.13.4"
   }
 }

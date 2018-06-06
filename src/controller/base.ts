@@ -1,5 +1,5 @@
-import { BaseContext } from "koa";
-import Koa from "koa";
+import { BaseContext } from 'koa';
+import Koa from 'koa';
 
 interface SelfBaseContext extends BaseContext {
   service: any;
