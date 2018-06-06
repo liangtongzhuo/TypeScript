@@ -5,6 +5,9 @@ import Koa from 'koa';
 
 const dirname = __dirname + '/..';
 
+/**
+ * 用于加载
+ */
 export class Loader {
   router = new Router();
   controller = {};
@@ -13,22 +16,22 @@ export class Loader {
   constructor(app: Koa) {
     this.app = app;
   }
-
+  /**
+   * 环境变量加载配置，绑定在 App ，初始化加载一次。
+   */
   loadConfig() {
-    const configDef = dirname + '/config/config.default.js';
-    const configEnv =
-      dirname +
-      (process.env.NODE_ENV === 'production' ? '/config/config.pro.js' : '/config/config.dev.js');
-    const conf = require(configEnv);
-    const confDef = require(configDef);
-    const merge = Object.assign({}, conf, confDef);
+    const fileName = process.env.NODE_ENV || 'default';
+    const configPath = `${dirname}/config/config.${fileName}.js`;
+    const conf = require(configPath);
     Object.defineProperty(this.app, 'config', {
       get: () => {
-        return merge;
+        return conf;
       },
     });
   }
-
+  /**
+   * 加载 Service ，生命周期根据 context 周期同步，每一个请求都会加载。
+   */
   loadService() {
     const service = fs.readdirSync(dirname + '/service');
     var that = this;
@@ -43,7 +46,7 @@ export class Loader {
           service.forEach(d => {
             const name = d.split('.')[0];
             const mod = require(dirname + '/service/' + d);
-            loaded['service'][name] = new mod(this, that.app); //注意这里传入
+            loaded['service'][name] = new mod(this, that.app);
           });
           return loaded.service;
         }
@@ -51,7 +54,9 @@ export class Loader {
       },
     });
   }
-
+  /**
+   * 加载控制器，跟随路由加初始化加载。
+   */
   loadController() {
     const dirs = fs.readdirSync(dirname + '/controller');
     dirs.forEach(filename => {

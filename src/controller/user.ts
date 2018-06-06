@@ -1,4 +1,4 @@
-import { Controller } from './base';
+import Controller from '../common/baseController';
 
 export default class User extends Controller {
   async user() {

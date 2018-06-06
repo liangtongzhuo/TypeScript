@@ -9,7 +9,7 @@ interface App extends Koa {
   config: any;
 }
 
-export class Controller {
+export default class Controller {
   ctx: SelfBaseContext;
   app: App;
   constructor(ctx: SelfBaseContext, app: App) {
