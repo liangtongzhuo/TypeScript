@@ -92,7 +92,7 @@ export class Loader {
     const routers = mod(this.controller);
     Object.keys(routers).forEach(key => {
       const [method, path] = key.split(' ');
-
+      // 每一次请求都会调用，与 context 生命周期同步 
       (<any>this.router)[method](path, async (ctx: BaseContext) => {
         const _class = routers[key].type;
         const handler = routers[key].methodName;
